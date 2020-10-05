@@ -2,6 +2,7 @@ import React from 'react';
 import '../Checkout/Checkout.css';
 import adBanner from '../../images/ad.jpg';
 import Subtotal from '../Subtotal/Subtotal';
+import CheckOutProduct from './CheckOutProduct';
 
 function Checkout() {
 
@@ -14,6 +15,7 @@ function Checkout() {
                         <h2 className="checkout__title">
                             Your Basket
                         </h2>
+                        <CheckOutProduct />
                     </div>
                 </div>
                 <div className="checkout__right">
