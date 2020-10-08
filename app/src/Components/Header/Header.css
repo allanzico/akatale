@@ -68,3 +68,7 @@
     display: flex;
     justify-content: space-evenly;
 }
+
+.header__nav a {
+    text-decoration: none;
+}
