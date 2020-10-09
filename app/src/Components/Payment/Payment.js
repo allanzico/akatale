@@ -8,7 +8,8 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import CurrencyFormat from 'react-currency-format';
 import { getBasketTotal } from '../../Reducers/Reducer';
 import { useEffect } from 'react';
-import axios from 'axios';
+import axios from '../../axios';
+import { db } from '../../firebase';
 
 function Payment() {
     const [{ basket, user }, dispatch] = useStateValue();
@@ -36,6 +37,8 @@ function Payment() {
         getClientSecret();
     }, [basket])
 
+    console.log("THE SECRET", clientSecret)
+
     //Submit stripe form
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -46,10 +49,17 @@ function Payment() {
             }
         }).then(({ paymentIntent }) => {
             //paymentIntent = payment confirmation
-
+            db.collection('users').doc(user?.uid).collection('orders').doc(paymentIntent.id).set({
+                basket: basket,
+                amount: paymentIntent.amount,
+                created: paymentIntent.created
+            })
             setSuccessful(true);
             setError(null);
             setProcessing(false);
+            dispatch({
+                type: 'EMPTY_BASKET'
+            })
             history.replace('/orders');
         })
     }
@@ -108,7 +118,7 @@ function Payment() {
                                     renderText={(value) => (
                                         <h3>Order Total: {value}</h3>
                                     )}
-                                    decimalScale={0}
+                                    decimalScale={2}
                                     value={getBasketTotal(basket)}
                                     displayType={"text"}
                                     thousandSeparator={true}

@@ -33,11 +33,12 @@ function Header() {
                         <span className="header__subOptionTwo">{user ? 'Sign Out' : 'Sign In'}</span>
                     </div>
                 </Link>
-
-                <div className="header__option">
-                    <span className="header__subOptionOne">your</span>
-                    <span className="header__subOptionTwo">Orders</span>
-                </div>
+                <Link to='/orders'>
+                    <div className="header__option">
+                        <span className="header__subOptionOne">your</span>
+                        <span className="header__subOptionTwo">Orders</span>
+                    </div>
+                </Link>
                 <Link to="/checkout">
                     <div className="header-optionBasket">
                         <ShoppingCartOutlinedIcon />
@@ -46,8 +47,6 @@ function Header() {
                         </span>
                     </div>
                 </Link>
-
-
             </div>
         </div>
     )
