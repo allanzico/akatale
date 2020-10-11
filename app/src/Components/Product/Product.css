@@ -41,3 +41,46 @@
 .product_rating {
     display: flex;
 }
+
+.toast {
+    display: flex;
+}
+
+.toast__productImage {
+    object-fit: contain;
+    width: 50px;
+    height: 50px;
+}
+
+.toast__productInfo {
+    padding-left: 20px;
+}
+
+.toast__productPrice {
+    margin-top: 5px;
+
+}
+
+.toast__basketButtonPrice {
+    margin-left: 3px;
+}
+
+.toast__icon {
+    object-fit: contain;
+    color: green;
+}
+
+.toast__heading {
+    color: green;
+}
+
+.toast__basketButton>button {
+    background: #cd9042;
+    border: 1px solid #b87d31;
+    margin-top: 5px;
+    padding: 5px;
+    width: 100%;
+    color: black;
+    cursor: pointer;
+    margin-bottom: 5px;
+}

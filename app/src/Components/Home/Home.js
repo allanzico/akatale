@@ -7,6 +7,7 @@ import cap from '../../images/cap.png';
 import car from '../../images/car.png';
 
 function Home() {
+
     return (
         <div className="home">
             <div className="home__container">
@@ -23,8 +24,8 @@ function Home() {
                 </div>
                 <div className="home__row">
                     <Product title="Lorem ipsum dolor sit, amet consectetur " id={6} price={10000000} image={car} rating={2} />
-
                 </div>
+
             </div>
         </div>
     )

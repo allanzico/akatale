@@ -2,12 +2,15 @@ import { StarBorderOutlined } from '@material-ui/icons';
 import React from 'react';
 import { useStateValue } from '../../Providers/StateProvider';
 import '../Checkout/Checkout.css';
+import FlipMove from 'react-flip-move';
 
 function CheckOutProduct({ id, image, title, price, rating, hideButton }) {
 
     const [{ basket }, dispatch] = useStateValue();
 
     //remove item from basket
+
+
     const removeFromBasket = () => {
         dispatch({
             type: 'REMOVE_FROM_BASKET',
@@ -15,7 +18,9 @@ function CheckOutProduct({ id, image, title, price, rating, hideButton }) {
 
         })
     }
+
     return (
+
         <div className="checkoutProduct">
             <img className="checkoutProduct__image" alt="" src={image} />
             <div className="checkoutProduct__info">
@@ -23,7 +28,7 @@ function CheckOutProduct({ id, image, title, price, rating, hideButton }) {
                     {title}
                 </p>
                 <p className="checkoutProduct__price">
-                    <small>UGX</small>
+                    <small>€</small>
                     <strong>{price}</strong>
                 </p>
                 <div className="checkoutProduct__rating">
@@ -37,6 +42,8 @@ function CheckOutProduct({ id, image, title, price, rating, hideButton }) {
 
             </div>
         </div>
+
+
     )
 }
 
