@@ -1,6 +1,6 @@
 .product {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     z-index: 1;
     background-color: #faf8f8;
     align-items: center;
@@ -13,13 +13,13 @@
 }
 
 .product>img {
-    max-height: 200px;
+    max-height: 100px;
     width: 100%;
     object-fit: contain;
     margin-bottom: 15px;
 }
 
-.product>button {
+.product__info>button {
     background: #cd9042;
     border: 1px solid #b87d31;
     margin-top: 10px;
@@ -30,8 +30,8 @@
 }
 
 .product__info {
-    height: 100px;
-    margin-bottom: 15px;
+    height: 150px;
+    margin-bottom: 5px;
 }
 
 .product__price {

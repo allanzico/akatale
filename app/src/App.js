@@ -11,6 +11,9 @@ import Payment from './Components/Payment/Payment';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import Orders from './Components/Orders/Orders';
+import ProductDetails from './Components/Product/ProductDetails';
+import InsertProducts from './Components/Admin/InsertProducts';
+import ViewProducts from './Components/Admin/ViewProducts';
 
 //Stripe public key
 const promise = loadStripe("pk_test_51HZyRFJBd9d7yEVytDyVHNsazcROMmJuFfzvRKHtfukPWudwvHgp5byIgG9saUiNsqbrZxX4ULxKehv8E91nR1Wo00278F99SP");
@@ -46,9 +49,16 @@ function App() {
     <BrowserRouter>
       <div className="app" >
         <Switch>
+          <Route path="/products/:id">
+              <ProductDetails/>
+          </Route>
           <Route path="/orders">
             <Header />
             <Orders />
+          </Route>
+          <Route path="/product/upload">
+              <InsertProducts/>
+              <ViewProducts/>
           </Route>
           <Route path="/login">
             <Login />

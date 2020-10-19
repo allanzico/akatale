@@ -9,7 +9,7 @@ import { CheckCircleOutline } from '@material-ui/icons';
 import CurrencyFormat from 'react-currency-format';
 import { getBasketTotal } from '../../Reducers/Reducer';
 import { css } from 'glamor';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 
 toast.configure()
@@ -88,14 +88,15 @@ function Product({ id, title, image, price, rating }) {
 
         });
         notify();
-
-
     };
 
     return (
         <div className="product">
+            <img src={image} alt="" />
             <div className="product__info">
-                <p>{title}</p>
+                <Link to={"/products/" + id}>
+                    <p>{title}</p>
+                </Link>
                 <p className="product__price">
                     <small>€</small>
                     <strong>{price}</strong>
@@ -104,15 +105,14 @@ function Product({ id, title, image, price, rating }) {
                     {Array(rating).fill().map((_, i) => (
                         <p><StarOutlinedIcon /></p>
                     ))}
-
                 </div>
-
+                <button onClick={addToBasket}>Add to Basket</button>
             </div>
-            <img src={image} alt="" />
-            <button onClick={addToBasket}>Add to Basket</button>
 
         </div>
     )
+
+
 }
 
 export default Product
