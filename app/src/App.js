@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Header from './Components/Header/Header';
 import Home from './Components/Home/Home';
@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom"
 import Checkout from './Components/Checkout/Checkout';
 import Login from './Components/Login/Login';
 import { auth } from './firebase';
+
 import { useStateValue } from './Providers/StateProvider';
 import Payment from './Components/Payment/Payment';
 import { Elements } from '@stripe/react-stripe-js';
@@ -22,10 +23,12 @@ const promise = loadStripe("pk_test_51HZyRFJBd9d7yEVytDyVHNsazcROMmJuFfzvRKHtfuk
 
 function App() {
   const [{ }, dispatch] = useStateValue();
+
+
+  //Auth
   useEffect(() => {
     auth.onAuthStateChanged(authUser => {
-      console.log("USER>>>>", authUser);
-
+    
       if (authUser) {
         //User logged in or was logged in
         dispatch({
@@ -44,6 +47,7 @@ function App() {
 
   }, [])
 
+  
 
   return (
     <BrowserRouter>

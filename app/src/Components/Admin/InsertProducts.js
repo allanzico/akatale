@@ -1,61 +1,84 @@
 import React, { useState } from 'react'
-import { db } from '../../firebase';
+import { db, storage, timestamp } from '../../firebase';
 import ProgressBar from '../Progress/ProgressBar';
 function InsertProducts() {
     const [file, setFile] = useState(null);
+    const [progress, setProgress] = useState(0);
     const [error, setError] = useState(null);
     const [title, setTitle] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const fileTypes = ['image/png', 'image/jpeg'];
+
+    //Handle image changes
     const changeHandler = (e) => {
         let selected = e.target.files[0];
 
         if (selected && fileTypes.includes(selected.type)) {
-            handleSubmit();
             setFile(selected);
             setError('')
+
         } else {
             setFile(null);
             setError('Please select an image (jpeg/png)');
-
         }
-        console.log(selected)
+
     }
 
     //Submit form
     const handleSubmit = (e) => {
+        //Reference to file in firebase
+        const storageRef = storage.ref(file.name);
+        const collectionRef = db.collection('products');
+        const uploadTask = storageRef.put(file);
+
+        uploadTask.on("state_changed", (snapshot) => {
+
+            //Progress Function
+            const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+            setProgress(progress);
+        }, (error) => {
+            console.log(error);
+        }, () => {
+            const createdAt = timestamp();
+            storageRef.getDownloadURL().then(url => {
+                collectionRef.add({
+                    createdAt, title: title, image: url, rating: 1, price: price
+                });
+
+                setProgress(0);
+                setTitle("");
+                setFile(null);
+                setPrice("");
+                setDescription("");
+
+            })
 
 
-        db.collection('products').add({
-            title: title,
-            price: price,
-            description: description
-        }).then(() => {
-            console.log("SUBMITTED")
-        }).catch((error) => {
-            console.log(error)
         })
-        setTitle("");
-        setPrice("");
-        setDescription("");
+        // db.collection('products').add({
+        //     title: title,
+        //     price: price,
+        //     description: description
+        // }).then(() => {
+        //     console.log("SUBMITTED")
+        // }).catch((error) => {
+        //     console.log(error)
+        // })
+        // setTitle("");
+        // setPrice("");
+        // setDescription("");
     }
 
     return (
         <div>
-            <form onSubmit={changeHandler}>
-                <input type="text" placeholder="title" value={title} onChange={(e) => setTitle(e.target.value)} />
-                <input type="text" placeholder="price" value={price} onChange={(e) => setPrice(e.target.value)} />
-                <textarea placeholder="description" value={description} onChange={(e) => setDescription(e.target.value)}  ></textarea>
-                <input type="file" onChange={changeHandler} />
 
-                <div className="file__output">
-                    {error && <div>{error}</div>}
-                    {file && <div>{file.name}</div>}
-                    {file && <ProgressBar file={file} setFile={setFile} />}
-                </div>
-                <button>Save</button>
-            </form>
+            <input type="text" placeholder="title" value={title} onChange={(e) => setTitle(e.target.value)} />
+            <input type="text" placeholder="price" value={price} onChange={(e) => setPrice(e.target.value)} />
+            <input type="file" onChange={changeHandler} />
+            <progress value={progress} max="100" />
+            <button onClick={handleSubmit}>Save</button>
+
         </div>
     )
 }

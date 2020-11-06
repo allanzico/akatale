@@ -8,6 +8,7 @@
 
 .home__row {
     display: flex;
+    flex-wrap: wrap;
     z-index: 1;
     margin-left: 5px;
     margin-right: 5px;
@@ -18,4 +19,46 @@
     z-index: -1;
     margin-bottom: -150px;
     mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+}
+
+.small__grid {
+    display: flex;
+    z-index: 1;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 10px;
+    padding: 20px;
+    max-width: 33.3%;
+    max-height: 400px;
+
+
+
+}
+
+.small__gridImage {
+    overflow: hidden;
+
+    flex: 1;
+
+}
+
+.small__gridInfo {
+    flex: 2;
+    padding: 10px 10px;
+    max-height: 400px;
+    min-width: 200px;
+
+}
+
+.small__gridImage>img {
+    max-height: 400px;
+
+}
+
+.grids {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    max-width: 800px;
 }
